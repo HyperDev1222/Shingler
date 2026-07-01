@@ -1,0 +1,108 @@
+.shingler-developments__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.4rem;
+}
+
+@media screen and (min-width: 990px) {
+  .shingler-developments__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.4rem;
+  }
+}
+
+.shingler-development-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--shingler-border);
+  background-color: var(--shingler-white);
+  position: relative;
+}
+
+.shingler-development-card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.shingler-development-card__media img,
+.shingler-development-card__placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.shingler-development-card__placeholder {
+  background-color: rgba(var(--color-foreground), 0.08);
+}
+
+.shingler-development-card__tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.shingler-development-card__body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.shingler-development-card__location {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+.shingler-development-card__title {
+  margin: 0 0 1rem;
+  font-size: 2.2rem;
+  letter-spacing: var(--shingler-letter-spacing-heading);
+}
+
+.shingler-development-card__description {
+  margin: 0 0 1.2rem;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.shingler-development-card__price {
+  margin: 0 0 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.shingler-development-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.shingler-development-card__meta-tag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--shingler-dark);
+}
+
+.shingler-development-card__meta-tag--filled {
+  background-color: var(--shingler-dark);
+  color: #ffffff;
+  border-color: var(--shingler-dark);
+}
+
+.shingler-development-card__actions {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

@@ -1,4 +1,5 @@
 {{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-cta.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -86,17 +87,19 @@
                   </div>
                 {%- when 'button' -%}
                   {%- if block.settings.button_label != blank -%}
-                    <a
-                      {% if block.settings.button_link == blank %}
-                        role="link" aria-disabled="true"
-                      {% else %}
-                        href="{{ block.settings.button_link }}"
-                      {% endif %}
-                      class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
-                      {{ block.shopify_attributes }}
-                    >
-                      {{ block.settings.button_label | escape }}
-                    </a>
+                    {%- liquid
+                      assign iwt_cta_style = 'primary'
+                      if block.settings.button_style_secondary
+                        assign iwt_cta_style = 'secondary'
+                      endif
+                    -%}
+                    <span {{ block.shopify_attributes }}>
+                      {% render 'shingler-cta',
+                        label: block.settings.button_label,
+                        url: block.settings.button_link,
+                        style: iwt_cta_style
+                      %}
+                    </span>
                   {%- endif -%}
               {%- endcase -%}
             {%- endfor -%}

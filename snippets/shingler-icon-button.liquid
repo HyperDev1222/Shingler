@@ -1,0 +1,42 @@
+{%- comment -%}
+  Renders a Shingler yellow icon button.
+  Accepts:
+  - icon: {String} 'arrow-left', 'arrow-right', 'plus', 'close'
+  - url: {String}
+  - aria_label: {String}
+  - class: {String}
+  - type: {String} 'button' or 'submit'
+{%- endcomment -%}
+
+{%- liquid
+  assign btn_class = 'shingler-icon-button'
+  if class != blank
+    assign btn_class = btn_class | append: ' ' | append: class
+  endif
+  assign btn_type = type | default: 'button'
+-%}
+
+{%- capture icon_content -%}
+  {%- case icon -%}
+    {%- when 'arrow-left' -%}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    {%- when 'arrow-right' -%}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    {%- when 'plus' -%}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    {%- when 'close' -%}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    {%- else -%}
+      {{- 'icon-arrow-up-right.svg' | inline_asset_content -}}
+  {%- endcase -%}
+{%- endcapture -%}
+
+{%- if url != blank -%}
+  <a href="{{ url }}" class="{{ btn_class }}" aria-label="{{ aria_label | escape }}">
+    {{ icon_content }}
+  </a>
+{%- else -%}
+  <button type="{{ btn_type }}" class="{{ btn_class }}" aria-label="{{ aria_label | escape }}">
+    {{ icon_content }}
+  </button>
+{%- endif -%}

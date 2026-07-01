@@ -1,0 +1,44 @@
+{%- comment -%}
+  Section header with optional eyebrow, description, and view-all action.
+  Accepts: eyebrow, heading, heading_size, description, action_label, action_url, action_variant (badge|button), class
+{%- endcomment -%}
+
+{%- liquid
+  assign size_class = heading_size | default: 'h2'
+  assign header_class = 'shingler-section-header'
+  if action_label != blank
+    assign header_class = header_class | append: ' shingler-section-header--with-action'
+  endif
+  if class != blank
+    assign header_class = header_class | append: ' ' | append: class
+  endif
+-%}
+
+<div class="{{ header_class }}">
+  <div class="shingler-section-header__content">
+    {%- if eyebrow != blank -%}
+      <p class="shingler-section-header__eyebrow">{{ eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if heading != blank -%}
+      <h2 class="shingler-section-header__heading {{ size_class }}">{{ heading | escape }}</h2>
+    {%- endif -%}
+    {%- if description != blank -%}
+      <p class="shingler-section-header__description">{{ description | escape }}</p>
+    {%- endif -%}
+  </div>
+  {%- if action_label != blank -%}
+    <div class="shingler-section-header__action">
+      {%- if action_variant == 'badge' -%}
+        {%- if action_url != blank -%}
+          <a href="{{ action_url }}" class="shingler-testimonials__rating">{{ action_label | escape }}</a>
+        {%- else -%}
+          <span class="shingler-testimonials__rating">{{ action_label | escape }}</span>
+        {%- endif -%}
+      {%- elsif action_url != blank -%}
+        {% render 'shingler-btn', label: action_label, url: action_url, style: 'outline-dark' %}
+      {%- else -%}
+        {% render 'shingler-btn', label: action_label, url: '', style: 'outline-dark' %}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>

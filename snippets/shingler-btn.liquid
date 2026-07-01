@@ -1,0 +1,21 @@
+{%- comment -%}
+  Wireframe-style button (solid / outline / text link).
+  Accepts: label, url, style (solid-dark|solid-light|outline-dark|outline-light|text), type
+{%- endcomment -%}
+
+{%- liquid
+  assign btn_style = style | default: 'solid-dark'
+  assign btn_class = 'shingler-btn shingler-btn--' | append: btn_style
+  assign btn_type = type | default: 'link'
+-%}
+
+{%- if label != blank -%}
+  {%- if btn_type == 'submit' or btn_type == 'button' -%}
+    <button type="{{ btn_type }}" class="{{ btn_class }}">{{ label | escape }}</button>
+  {%- else -%}
+    <a
+      {% if url != blank %}href="{{ url }}"{% else %}role="link" aria-disabled="true"{% endif %}
+      class="{{ btn_class }}"
+    >{{ label | escape }}</a>
+  {%- endif -%}
+{%- endif -%}

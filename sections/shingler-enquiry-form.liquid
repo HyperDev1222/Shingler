@@ -1,0 +1,186 @@
+{{ 'component-shingler-forms.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-cta.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="register-interest"
+  class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding"
+>
+  <div class="page-width">
+    <div class="shingler-form" style="max-width: 64rem;">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="shingler-form__heading h2">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="rte">{{ section.settings.description | escape }}</p>
+      {%- endif -%}
+
+      {%- form 'contact', id: 'ShinglerEnquiryForm', class: 'isolate' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="form-status form-status-list form__message" tabindex="-1" autofocus>
+            {{ 'templates.contact.form.post_success' | t }}
+          </div>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <div class="form__message">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        <input type="hidden" name="contact[Development]" value="{{ collection.title | default: section.settings.development_name | escape }}">
+
+        <div class="field">
+          <input
+            class="field__input"
+            type="text"
+            id="EnquiryFirstName-{{ section.id }}"
+            name="contact[First name]"
+            placeholder="First Name"
+            required
+          >
+          <label class="field__label" for="EnquiryFirstName-{{ section.id }}">First Name</label>
+        </div>
+
+        <div class="field">
+          <input
+            class="field__input"
+            type="text"
+            id="EnquiryLastName-{{ section.id }}"
+            name="contact[Last name]"
+            placeholder="Last Name"
+            required
+          >
+          <label class="field__label" for="EnquiryLastName-{{ section.id }}">Last Name</label>
+        </div>
+
+        <div class="field">
+          <input
+            class="field__input"
+            type="email"
+            id="EnquiryEmail-{{ section.id }}"
+            name="contact[email]"
+            placeholder="Email Address"
+            autocomplete="email"
+            required
+          >
+          <label class="field__label" for="EnquiryEmail-{{ section.id }}">Email Address</label>
+        </div>
+
+        <div class="field">
+          <input
+            class="field__input"
+            type="tel"
+            id="EnquiryPhone-{{ section.id }}"
+            name="contact[Phone]"
+            placeholder="Telephone Number"
+            autocomplete="tel"
+          >
+          <label class="field__label" for="EnquiryPhone-{{ section.id }}">Telephone Number</label>
+        </div>
+
+        <div class="field">
+          <textarea
+            class="text-area field__input"
+            id="EnquiryMessage-{{ section.id }}"
+            name="contact[body]"
+            placeholder="Enquiry"
+            rows="5"
+            required
+          ></textarea>
+          <label class="field__label" for="EnquiryMessage-{{ section.id }}">Enquiry</label>
+        </div>
+
+        <div class="shingler-form__consent">
+          <input type="checkbox" id="EnquiryConsent-{{ section.id }}" name="contact[Marketing consent]" value="Yes">
+          <label for="EnquiryConsent-{{ section.id }}">{{ section.settings.consent_text | escape }}</label>
+        </div>
+
+        <div class="shingler-form__submit">
+          {% render 'shingler-cta', label: section.settings.button_label, style: 'secondary', type: 'submit' %}
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Register interest form",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Register your interest"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "development_name",
+      "label": "Development name fallback"
+    },
+    {
+      "type": "text",
+      "id": "consent_text",
+      "label": "Consent checkbox text",
+      "default": "Tick this box to receive ongoing communications from Shingler Homes on news, offers and new developments."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Submit button label",
+      "default": "Submit"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Register interest form"
+    }
+  ]
+}
+{% endschema %}

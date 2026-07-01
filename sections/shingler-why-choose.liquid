@@ -1,0 +1,86 @@
+{{ 'section-shingler-why-choose.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-buttons.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width shingler-why-choose">
+    <div class="shingler-why-choose__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="shingler-why-choose__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="shingler-why-choose__heading h1">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p class="shingler-why-choose__intro">{{ section.settings.intro | escape }}</p>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        <div class="shingler-why-choose__feature" {{ block.shopify_attributes }}>
+          <h3 class="shingler-why-choose__feature-title">{{ block.settings.title | escape }}</h3>
+          <p class="shingler-why-choose__feature-text">{{ block.settings.text | escape }}</p>
+        </div>
+      {%- endfor -%}
+      <div class="shingler-why-choose__actions">
+        {% render 'shingler-btn', label: section.settings.button_label_1, url: section.settings.button_link_1, style: 'solid-dark' %}
+        {% render 'shingler-btn', label: section.settings.button_label_2, url: section.settings.button_link_2, style: 'outline-dark' %}
+      </div>
+    </div>
+    <div class="shingler-why-choose__media">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 50vw, 100vw' }}
+      {%- else -%}
+        <div class="shingler-why-choose__placeholder"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Why choose Shingler",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why Choose Shingler Homes" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A Home Built Around You" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "We're not a volume builder. Every Shingler home is crafted with the care and attention of a regional developer who takes real pride in what they create — from the foundations to the final finish." },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "button_label_1", "label": "Primary button", "default": "Built to Last" },
+    { "type": "url", "id": "button_link_1", "label": "Primary button link" },
+    { "type": "text", "id": "button_label_2", "label": "Secondary button", "default": "About Us" },
+    { "type": "url", "id": "button_link_2", "label": "Secondary button link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding top", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bottom", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Personal Service" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "You'll work directly with our team from first enquiry to key handover — no call centres, no confusion." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why choose Shingler",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Personal Service", "text": "You'll work directly with our team from first enquiry to key handover — no call centres, no confusion." } },
+        { "type": "feature", "settings": { "title": "Quality Craftsmanship", "text": "Built using premium materials and backed by our 10-year NHBC warranty. Every home inspected to exacting standards." } },
+        { "type": "feature", "settings": { "title": "Energy Efficiency", "text": "All Shingler homes meet or exceed current energy efficiency standards, reducing your bills and environmental impact." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

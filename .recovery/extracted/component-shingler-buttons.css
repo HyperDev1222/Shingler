@@ -1,0 +1,64 @@
+/* Wireframe-style solid & outline buttons (header, hero, cards) */
+.shingler-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--shingler-letter-spacing-button);
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.shingler-btn:hover {
+  opacity: 0.85;
+}
+
+.shingler-btn--solid-dark {
+  background-color: var(--shingler-dark);
+  color: #ffffff;
+  border-color: var(--shingler-dark);
+}
+
+.shingler-btn--solid-light {
+  background-color: #ffffff;
+  color: var(--shingler-dark);
+  border-color: #ffffff;
+}
+
+.shingler-btn--outline-dark {
+  background-color: transparent;
+  color: var(--shingler-dark);
+  border-color: var(--shingler-dark);
+}
+
+.shingler-btn--outline-light {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.shingler-btn--text {
+  padding: 0;
+  background: none;
+  border: none;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  color: var(--shingler-dark);
+  border-bottom: 1px solid var(--shingler-dark);
+  border-radius: 0;
+}
+
+.shingler-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: center;
+}

@@ -1,0 +1,57 @@
+.shingler-development-hero {
+  position: relative;
+  min-height: 40rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+.shingler-development-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.shingler-development-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shingler-development-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(32, 27, 23, 0.75) 0%, rgba(32, 27, 23, 0.2) 60%, transparent 100%);
+}
+
+.shingler-development-hero__content {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 0;
+  color: #ffffff;
+  max-width: 72rem;
+}
+
+.shingler-development-hero__eyebrow {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: var(--shingler-letter-spacing-button);
+  opacity: 0.85;
+}
+
+.shingler-development-hero__heading {
+  margin: 0 0 1.6rem;
+  letter-spacing: var(--shingler-letter-spacing-heading);
+}
+
+.shingler-development-hero__text {
+  font-size: 1.8rem;
+  line-height: 1.6;
+  letter-spacing: var(--shingler-letter-spacing-body);
+  margin: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .shingler-development-hero {
+    min-height: 32rem;
+  }
+}

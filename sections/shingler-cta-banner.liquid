@@ -1,0 +1,38 @@
+{{ 'section-shingler-cta-banner.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-buttons.css' | asset_url | stylesheet_tag }}
+<div class="shingler-cta-banner section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="shingler-cta-banner__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="shingler-cta-banner__heading h1">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <p class="shingler-cta-banner__text">{{ section.settings.text | escape }}</p>
+    {%- endif -%}
+    <div class="shingler-cta-banner__actions">
+      {% render 'shingler-btn', label: section.settings.button_label_1, url: section.settings.button_link_1, style: 'solid-light' %}
+      {% render 'shingler-btn', label: section.settings.button_label_2, url: section.settings.button_link_2, style: 'outline-light' %}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "CTA banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Take the First Step" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Ready to Find Your New Home?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Speak to our friendly sales team to discover which development and scheme is right for you." },
+    { "type": "text", "id": "button_label_1", "label": "Primary button", "default": "Browse Developments" },
+    { "type": "url", "id": "button_link_1", "label": "Primary button link" },
+    { "type": "text", "id": "button_label_2", "label": "Secondary button", "default": "Get in Touch" },
+    { "type": "url", "id": "button_link_2", "label": "Secondary button link" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding top", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bottom", "default": 64 }
+  ],
+  "presets": [{ "name": "CTA banner" }]
+}
+{% endschema %}

@@ -12,73 +12,423 @@
     "image_banner": {
       "type": "image-banner",
       "blocks": {
+        "caption": {
+          "type": "caption",
+          "settings": {
+            "text": "New Build Homes – Shropshire & Beyond",
+            "background_type": "light"
+          }
+        },
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Browse our latest products",
+            "heading": "Built for Living. Designed to Last.",
             "heading_size": "h0"
           }
         },
-        "button": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "Quality new-build homes crafted with care, built to stand the test of time, and designed around the way you really live.",
+            "text_style": "body"
+          }
+        },
+        "buttons": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop all",
+            "button_label_1": "View Developments",
             "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "button_style_secondary_1": false,
+            "button_label_2": "Buying With Us",
+            "button_link_2": "shopify://pages/buying",
+            "button_style_secondary_2": true
           }
         }
       },
       "block_order": [
+        "caption",
         "heading",
-        "button"
+        "text",
+        "buttons"
       ],
       "settings": {
         "image_overlay_opacity": 40,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "image_behavior": "none",
-        "desktop_content_alignment": "center",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "left",
         "show_text_below": false
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "shingler_stats": {
+      "type": "shingler-stats",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "500+",
+            "label": "Homes built"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "20+",
+            "label": "Years Experience"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "97%",
+            "label": "Customer Satisfaction"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "value": "10yr",
+            "label": "NHBC Warranty"
+          }
+        },
+        "stat_5": {
+          "type": "stat",
+          "settings": {
+            "value": "8",
+            "label": "Buying Schemes"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4",
+        "stat_5"
+      ],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "shingler_developments": {
+      "type": "shingler-developments",
+      "blocks": {
+        "dev_1": {
+          "type": "development",
+          "settings": {
+            "collection": "",
+            "placeholder_title": "Meadowbrook Gardens",
+            "location": "Shrewsbury, Shropshire",
+            "description": "A collection of 2, 3 & 4 bedroom homes set\nwithin a landscaped community.",
+            "price": "From £235,000",
+            "status_tag": "Selling Now",
+            "tag_style": "dark",
+            "feature_tag_1": "2-4 Bed",
+            "feature_tag_1_filled": false,
+            "feature_tag_2": "3 Remaining",
+            "feature_tag_2_filled": true,
+            "button_label_1": "View Development",
+            "button_link_1": "",
+            "button_1_style": "solid-dark",
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_2_style": "outline-dark"
+          }
+        },
+        "dev_2": {
+          "type": "development",
+          "settings": {
+            "collection": "",
+            "placeholder_title": "Oakfield Place",
+            "location": "Telford, Shropshire",
+            "description": "3 & 5 bedroom family homes with private\ngardens and superb rural views.",
+            "price": "From £310,000",
+            "status_tag": "Coming Soon",
+            "tag_style": "light",
+            "feature_tag_1": "3–5 Bed",
+            "feature_tag_1_filled": false,
+            "feature_tag_2": "Launching Spring 2025",
+            "feature_tag_2_filled": false,
+            "button_label_1": "Register Interest",
+            "button_link_1": "",
+            "button_1_style": "outline-dark",
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_2_style": "outline-dark"
+          }
+        },
+        "dev_3": {
+          "type": "development",
+          "settings": {
+            "collection": "",
+            "placeholder_title": "Bishops Gate",
+            "location": "Church Stretton, Shropshire",
+            "description": "An exclusive collection of executive homes.\nPart of our premium Signature Collection.",
+            "price": "Prices on Application",
+            "status_tag": "Signature Collection",
+            "tag_style": "dark",
+            "feature_tag_1": "4–5 Bed",
+            "feature_tag_1_filled": false,
+            "feature_tag_2": "Executive Homes",
+            "feature_tag_2_filled": false,
+            "button_label_1": "View Signature Collection",
+            "button_link_1": "",
+            "button_1_style": "outline-dark",
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_2_style": "outline-dark"
+          }
+        }
+      },
+      "block_order": [
+        "dev_1",
+        "dev_2",
+        "dev_3"
+      ],
+      "settings": {
+        "eyebrow": "Current Developments",
+        "heading": "Find Your Perfect Home",
+        "description": "Browse our current and upcoming new-build homes across Shropshire.\nEvery Shingler home is crafted to an exacting standard.",
+        "heading_size": "h1",
+        "view_all_label": "View All Developments",
+        "view_all_link": "#",
         "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "shingler_signature_collection": {
+      "type": "shingler-signature-collection",
+      "settings": {
+        "badge": "New",
+        "heading": "The Signature Collection",
+        "text": "Our most prestigious homes. Each property in the Signature Collection is\nindividually designed, finished to a bespoke standard, and built for those who\nexpect the exceptional.",
+        "button_label": "Explore the Collection",
+        "button_link": "#",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "shingler_why_choose": {
+      "type": "shingler-why-choose",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "title": "Personal Service",
+            "text": "You'll work directly with our team from first enquiry to key handover — no call\ncentres, no confusion."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "title": "Quality Craftsmanship",
+            "text": "Built using premium materials and backed by our 10-year NHBC warranty. Every\nhome inspected to exacting standards."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "title": "Energy Efficiency",
+            "text": "All Shingler homes meet or exceed current energy efficiency standards, reducing\nyour bills and environmental impact."
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
+      "settings": {
+        "eyebrow": "Why Choose Shingler Homes",
+        "heading": "A Home Built Around You",
+        "intro": "We're not a volume builder. Every Shingler home is crafted with the care\nand attention of a regional developer who takes real pride in what they\ncreate — from the foundations to the final finish.",
+        "image": "shopify://shop_images/theme_cover_image.jpg",
+        "button_label_1": "About us",
+        "button_link_1": "#",
+        "button_label_2": "View developments",
+        "button_link_2": "shopify://collections/all",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "shingler_buying_schemes": {
+      "type": "shingler-buying-schemes",
+      "blocks": {
+        "scheme_1": {
+          "type": "scheme",
+          "settings": {
+            "title": "First Time Buyer Assist",
+            "text": "Everything you need to take your\nfirst step with confidence.",
+            "link_label": "Learn More",
+            "link": ""
+          }
+        },
+        "scheme_2": {
+          "type": "scheme",
+          "settings": {
+            "title": "Deposit Match",
+            "text": "We match your deposit, reducing\nthe mortgage you need to secure.",
+            "link_label": "Learn More",
+            "link": ""
+          }
+        },
+        "scheme_3": {
+          "type": "scheme",
+          "settings": {
+            "title": "Part Exchange",
+            "text": "Sell your current home direct to\nus. No chains, no stress.",
+            "link_label": "Learn More",
+            "link": ""
+          }
+        },
+        "scheme_4": {
+          "type": "scheme",
+          "settings": {
+            "title": "Early Bird Reservation",
+            "text": "Reserve before launch for priority\nplot selection and exclusive\npricing.",
+            "link_label": "Learn More",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "scheme_1",
+        "scheme_2",
+        "scheme_3",
+        "scheme_4"
+      ],
+      "settings": {
+        "eyebrow": "Buyer Support Schemes",
+        "heading": "We Make Moving Easier",
+        "description": "Eight schemes designed to help every type of buyer — from first-timers to those moving\nup the property ladder.",
+        "button_label": "View All 8 Schemes",
+        "button_link": "",
+        "color_scheme": "scheme-2",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "shingler_testimonials": {
+      "type": "shingler-testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "From our first visit to collecting the\nkeys, the Shingler team was\ntransparent, professional, and\ngenuinely caring. We wouldn't\nhesitate to recommend them.",
+            "author": "Sarah & Mark T. – Meadowbrook Gardens"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The part exchange was seamless.\nNo estate agents, no chain — we\nwere in our new home within eight\nweeks. Brilliant from start to finish.",
+            "author": "James & Claire H. – Riverside Quarter"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "As a first-time buyer I was\ndaunted, but the First Time Buyer\nAssist scheme and the team's\npatience made it genuinely\nenjoyable.",
+            "author": "Amy W. – Oakfield Place"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ],
+      "settings": {
+        "eyebrow": "What Our Homeowners Say",
+        "heading": "Stories from Our Residents",
+        "rating_text": "4.9 / 5 Average Rating",
+        "rating_link": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "shingler_cta_banner": {
+      "type": "shingler-cta-banner",
+      "settings": {
+        "eyebrow": "Take the First Step",
+        "heading": "Ready to Find Your New Home?",
+        "text": "Speak to our friendly sales team to discover which development\nand scheme is right for you.",
+        "button_label_1": "Browse Developments",
+        "button_link_1": "#",
+        "button_label_2": "Get in Touch",
+        "button_link_2": "#",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "shingler_news": {
+      "type": "shingler-news",
+      "blocks": {
+        "placeholder_FU3ycz": {
+          "type": "placeholder",
+          "settings": {
+            "image": "shopify://shop_images/theme_cover_image.jpg",
+            "meta": "March 2025 · Buyer Guides",
+            "title": "5 Things First-Time Buyers Need to Know in 2025",
+            "excerpt": "From mortgage rates to government schemes\n— everything explained in plain English.",
+            "link": "#"
+          }
+        },
+        "placeholder_eFeELk": {
+          "type": "placeholder",
+          "settings": {
+            "image": "shopify://shop_images/theme_cover_image.jpg",
+            "meta": "Feb 2025 · Development News",
+            "title": "Oakfield Place: Launching Spring 2025",
+            "excerpt": "Register your interest now for priority access\nand early-bird pricing at our newest Telford\ndevelopment.",
+            "link": "#"
+          }
+        },
+        "placeholder_VXjkgP": {
+          "type": "placeholder",
+          "settings": {
+            "image": "shopify://shop_images/theme_cover_image.jpg",
+            "meta": "Jan 2025 · Sustainability",
+            "title": "Why Energy Efficiency MattersWhen Buying a New Build",
+            "excerpt": "New-build homes are up to 64% cheaper to run\nthan older properties. Here's how Shingler\ndelivers.",
+            "link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "placeholder_FU3ycz",
+        "placeholder_eFeELk",
+        "placeholder_VXjkgP"
+      ],
+      "settings": {
+        "blog": "",
+        "post_limit": 3,
+        "eyebrow": "Latest News",
+        "heading": "From Shingler Homes",
+        "view_all_label": "View all news",
+        "view_all_link": "shopify://blogs/news",
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "shingler_stats",
+    "shingler_developments",
+    "shingler_signature_collection",
+    "shingler_why_choose",
+    "shingler_buying_schemes",
+    "shingler_testimonials",
+    "shingler_cta_banner",
+    "shingler_news"
   ]
 }

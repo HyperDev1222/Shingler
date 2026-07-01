@@ -15,7 +15,7 @@
         "featured_image": {
           "type": "featured_image",
           "settings": {
-            "image_height": "adapt"
+            "image_height": "large"
           }
         },
         "title": {
@@ -25,27 +25,43 @@
             "blog_show_author": false
           }
         },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
-        },
         "content": {
           "type": "content",
           "settings": {}
         }
       },
-      "block_order": [
-        "featured_image",
-        "title",
-        "share",
-        "content"
-      ],
+      "block_order": ["featured_image", "title", "content"],
       "settings": {}
+    },
+    "cta": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Interested in our developments?",
+            "heading_size": "h2"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "View developments",
+            "button_link": "/#developments",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["heading", "button"],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-2",
+        "full_width": true,
+        "padding_top": 48,
+        "padding_bottom": 64
+      }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main", "cta"]
 }

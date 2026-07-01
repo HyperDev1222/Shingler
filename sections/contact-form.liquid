@@ -1,4 +1,6 @@
 {{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-forms.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-cta.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -15,7 +17,7 @@
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="contact page-width page-width--narrow section-{{ section.id }}-padding">
+  <div class="contact page-width page-width--narrow section-{{ section.id }}-padding shingler-form">
     {%- if section.settings.heading != blank -%}
       <h2 class="title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         {{ section.settings.heading }}
@@ -127,9 +129,8 @@
         </label>
       </div>
       <div class="contact__button">
-        <button type="submit" class="button">
-          {{ 'templates.contact.form.send' | t }}
-        </button>
+        {%- assign submit_label = 'templates.contact.form.send' | t -%}
+        {% render 'shingler-cta', label: submit_label, style: 'secondary', type: 'submit' %}
       </div>
     {%- endform -%}
   </div>

@@ -1,0 +1,48 @@
+{%- comment -%}
+  Renders a Shingler CTA button.
+  Accepts:
+  - label: {String}
+  - url: {String}
+  - style: {String} 'primary' or 'secondary'
+  - on_dark: {Boolean}
+  - class: {String}
+  - type: {String} 'link', 'button', or 'submit'
+{%- endcomment -%}
+
+{%- liquid
+  assign cta_style = style | default: 'primary'
+  assign cta_class = 'shingler-cta shingler-cta--' | append: cta_style
+  if on_dark
+    assign cta_class = cta_class | append: ' shingler-cta--on-dark'
+  endif
+  if class != blank
+    assign cta_class = cta_class | append: ' ' | append: class
+  endif
+  assign cta_type = type | default: 'link'
+-%}
+
+{%- if label != blank -%}
+  {%- capture cta_inner -%}
+    <span class="shingler-cta__icon">
+      {{- 'icon-arrow-up-right.svg' | inline_asset_content -}}
+    </span>
+    <span class="shingler-cta__label">{{ label | escape }}</span>
+  {%- endcapture -%}
+
+  {%- if cta_type == 'submit' or cta_type == 'button' -%}
+    <button type="{{ cta_type }}" class="{{ cta_class }}">
+      {{ cta_inner }}
+    </button>
+  {%- else -%}
+    <a
+      {% if url != blank %}
+        href="{{ url }}"
+      {% else %}
+        role="link" aria-disabled="true"
+      {% endif %}
+      class="{{ cta_class }}"
+    >
+      {{ cta_inner }}
+    </a>
+  {%- endif -%}
+{%- endif -%}

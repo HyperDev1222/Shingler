@@ -1,0 +1,76 @@
+{{ 'section-shingler-testimonials.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-section-header.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    {% render 'shingler-section-header',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      heading_size: 'h1',
+      action_label: section.settings.rating_text,
+      action_url: section.settings.rating_link,
+      action_variant: 'badge'
+    %}
+
+    <div class="shingler-testimonials__grid">
+      {%- for block in section.blocks -%}
+        <div class="shingler-testimonial" {{ block.shopify_attributes }}>
+          <div class="shingler-testimonial__stars" aria-hidden="true">
+            {%- for i in (1..5) -%}
+              <span class="shingler-testimonial__star"></span>
+            {%- endfor -%}
+          </div>
+          <p class="shingler-testimonial__quote">"{{ block.settings.quote | escape }}"</p>
+          <footer class="shingler-testimonial__author">{{ block.settings.author | escape }}</footer>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What Our Homeowners Say" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stories from Our Residents" },
+    { "type": "text", "id": "rating_text", "label": "Rating badge", "default": "4.9 / 5 Average Rating" },
+    { "type": "url", "id": "rating_link", "label": "Rating badge link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding top", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bottom", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "From our first visit to collecting the keys, the Shingler team was transparent, professional, and genuinely caring." },
+        { "type": "text", "id": "author", "label": "Author", "default": "Sarah & Mark T. – Bridleways" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "testimonial", "settings": { "quote": "From our first visit to collecting the keys, the Shingler team was transparent, professional, and genuinely caring. We wouldn't hesitate to recommend them.", "author": "Sarah & Mark T. – Bridleways" } },
+        { "type": "testimonial", "settings": { "quote": "The part exchange was seamless. No estate agents, no chain — we were in our new home within eight weeks. Brilliant from start to finish.", "author": "James & Claire H. – The Acorns" } },
+        { "type": "testimonial", "settings": { "quote": "As a first-time buyer I was daunted, but the First Time Buyer Assist scheme and the team's patience made it genuinely enjoyable.", "author": "Amy W. – Boundary Fields" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

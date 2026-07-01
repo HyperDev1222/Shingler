@@ -1,0 +1,51 @@
+{{ 'section-shingler-stats.css' | asset_url | stylesheet_tag }}
+
+<div class="shingler-stats color-{{ section.settings.color_scheme }} gradient">
+  <ul class="shingler-stats__grid list-unstyled" role="list">
+    {%- for block in section.blocks -%}
+      <li class="shingler-stats__item" {{ block.shopify_attributes }}>
+        <span class="shingler-stats__value">{{ block.settings.value | escape }}</span>
+        <span class="shingler-stats__label">{{ block.settings.label | escape }}</span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Shingler stats bar",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "500+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Homes Delivered" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shingler stats bar",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "500+", "label": "Homes Delivered" } },
+        { "type": "stat", "settings": { "value": "20+", "label": "Years Experience" } },
+        { "type": "stat", "settings": { "value": "97%", "label": "Customer Satisfaction" } },
+        { "type": "stat", "settings": { "value": "10yr", "label": "NHBC Warranty" } },
+        { "type": "stat", "settings": { "value": "8", "label": "Buying Schemes" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,123 @@
+{{ 'section-shingler-news.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-buttons.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-section-header.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+  }
+{%- endstyle -%}
+
+{%- assign blog = blogs[section.settings.blog] -%}
+{%- liquid
+  assign view_all_url = section.settings.view_all_link
+  if view_all_url == blank and blog != blank
+    assign view_all_url = blog.url
+  endif
+-%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    {% render 'shingler-section-header',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      heading_size: 'h1',
+      action_label: section.settings.view_all_label,
+      action_url: view_all_url
+    %}
+
+    <div class="shingler-news__grid">
+      {%- if blog != blank and blog.articles.size > 0 -%}
+        {%- for article in blog.articles limit: section.settings.post_limit -%}
+          <article class="shingler-news-card">
+            <a href="{{ article.url }}" class="shingler-news-card__media">
+              {%- if article.image != blank -%}
+                {{ article.image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 33vw, 100vw' }}
+              {%- else -%}
+                <div class="shingler-news-card__placeholder"></div>
+              {%- endif -%}
+            </a>
+            <div class="shingler-news-card__body">
+              <p class="shingler-news-card__meta">{{ article.published_at | date: "%B %Y" | upcase }} · {{ blog.title | upcase }}</p>
+              <h3 class="shingler-news-card__title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h3>
+              <p class="shingler-news-card__excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+              {% render 'shingler-btn', label: 'Read More', url: article.url, style: 'outline-dark' %}
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          <article class="shingler-news-card" {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}" class="shingler-news-card__media">
+            {%- else -%}
+              <div class="shingler-news-card__media">
+            {%- endif -%}
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 33vw, 100vw', alt: block.settings.title | escape }}
+              {%- else -%}
+                <div class="shingler-news-card__placeholder"></div>
+              {%- endif -%}
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- else -%}
+              </div>
+            {%- endif -%}
+            <div class="shingler-news-card__body">
+              <p class="shingler-news-card__meta">{{ block.settings.meta | escape }}</p>
+              <h3 class="shingler-news-card__title">{{ block.settings.title | escape }}</h3>
+              <p class="shingler-news-card__excerpt">{{ block.settings.excerpt | escape }}</p>
+              {% render 'shingler-btn', label: 'Read More', url: block.settings.link, style: 'outline-dark' %}
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shingler news",
+  "tag": "section",
+  "class": "section section-shingler-news",
+  "settings": [
+    { "type": "blog", "id": "blog", "label": "Blog" },
+    { "type": "range", "id": "post_limit", "min": 2, "max": 6, "step": 1, "label": "Posts to show", "default": 3 },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Latest News" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From Shingler Homes" },
+    { "type": "text", "id": "view_all_label", "label": "View all label", "default": "View All News" },
+    { "type": "url", "id": "view_all_link", "label": "View all link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding top", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bottom", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "placeholder",
+      "name": "Placeholder article",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "meta", "label": "Meta", "default": "March 2025 · Buyer Guides" },
+        { "type": "text", "id": "title", "label": "Title", "default": "5 Things First-Time Buyers Need to Know in 2025" },
+        { "type": "textarea", "id": "excerpt", "label": "Excerpt", "default": "From mortgage rates to government schemes — everything explained in plain English." },
+        { "type": "url", "id": "link", "label": "Read more link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shingler news",
+      "blocks": [
+        { "type": "placeholder", "settings": { "meta": "March 2025 · Buyer Guides", "title": "5 Things First-Time Buyers Need to Know in 2025", "excerpt": "From mortgage rates to government schemes — everything explained in plain English." } },
+        { "type": "placeholder", "settings": { "meta": "Feb 2025 · Development News", "title": "Victoria Works: Launching Spring 2025", "excerpt": "Register your interest now for priority access and early-bird pricing at our newest development." } },
+        { "type": "placeholder", "settings": { "meta": "Jan 2025 · Sustainability", "title": "Why Energy Efficiency Matters When Buying a New Build", "excerpt": "New-build homes are up to 64% cheaper to run than older properties. Here's how Shingler delivers." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

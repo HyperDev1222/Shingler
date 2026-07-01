@@ -1,0 +1,19 @@
+{%- comment -%}
+  Renders a Shingler pill tag.
+  Accepts:
+  - text: {String}
+  - style: {String} 'light', 'dark', or 'hero'
+  - class: {String}
+{%- endcomment -%}
+
+{%- liquid
+  assign tag_style = style | default: 'none'
+  assign tag_class = 'shingler-tag shingler-tag--' | append: tag_style
+  if class != blank
+    assign tag_class = tag_class | append: ' ' | append: class
+  endif
+-%}
+
+{%- if text != blank -%}
+  <span class="{{ tag_class }}" {% if tag_style == 'light' %}style="background-color: #555;"{% endif %}>{{ text | escape }}</span>
+{%- endif -%}

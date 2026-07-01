@@ -1,0 +1,165 @@
+{{ 'section-shingler-developments.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-buttons.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-tag.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-section-header.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="developments"
+  class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding"
+>
+  <div class="page-width">
+    {% render 'shingler-section-header',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      heading_size: section.settings.heading_size,
+      description: section.settings.description,
+      action_label: section.settings.view_all_label,
+      action_url: section.settings.view_all_link
+    %}
+
+    <div class="shingler-developments__grid">
+      {%- for block in section.blocks -%}
+        {%- assign collection = block.settings.collection -%}
+        {%- assign dev_url = collection.url | default: block.settings.button_link_1 -%}
+        <article class="shingler-development-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.status_tag != blank -%}
+            <div class="shingler-development-card__tag">
+              {% render 'shingler-tag', text: block.settings.status_tag, style: block.settings.tag_style %}
+            </div>
+          {%- endif -%}
+          <a href="{{ dev_url | default: '#' }}" class="shingler-development-card__media media">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 900
+                | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 33vw, 100vw'
+              }}
+            {%- elsif collection.featured_image != blank -%}
+              {{
+                collection.featured_image
+                | image_url: width: 900
+                | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 33vw, 100vw'
+              }}
+            {%- else -%}
+              <div class="shingler-development-card__placeholder"></div>
+            {%- endif -%}
+          </a>
+          <div class="shingler-development-card__body">
+            {%- if block.settings.location != blank -%}
+              <p class="shingler-development-card__location">{{ block.settings.location | escape }}</p>
+            {%- endif -%}
+            <h3 class="shingler-development-card__title">
+              {%- if collection != blank -%}
+                {{ collection.title | escape }}
+              {%- else -%}
+                {{ block.settings.placeholder_title | escape }}
+              {%- endif -%}
+            </h3>
+            {%- if block.settings.description != blank -%}
+              <p class="shingler-development-card__description">{{ block.settings.description | escape }}</p>
+            {%- elsif collection.description != blank -%}
+              <p class="shingler-development-card__description">{{ collection.description | strip_html | truncate: 160 }}</p>
+            {%- endif -%}
+            {%- if block.settings.price != blank -%}
+              <p class="shingler-development-card__price">{{ block.settings.price | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.feature_tag_1 != blank or block.settings.feature_tag_2 != blank -%}
+              <div class="shingler-development-card__tags">
+                {%- if block.settings.feature_tag_1 != blank -%}
+                  <span class="shingler-development-card__meta-tag{% if block.settings.feature_tag_1_filled %} shingler-development-card__meta-tag--filled{% endif %}">{{ block.settings.feature_tag_1 | escape }}</span>
+                {%- endif -%}
+                {%- if block.settings.feature_tag_2 != blank -%}
+                  <span class="shingler-development-card__meta-tag{% if block.settings.feature_tag_2_filled %} shingler-development-card__meta-tag--filled{% endif %}">{{ block.settings.feature_tag_2 | escape }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+            <div class="shingler-development-card__actions">
+              {% render 'shingler-btn',
+                label: block.settings.button_label_1,
+                url: dev_url,
+                style: block.settings.button_1_style
+              %}
+              {%- if block.settings.button_label_2 != blank -%}
+                {% render 'shingler-btn',
+                  label: block.settings.button_label_2,
+                  url: block.settings.button_link_2,
+                  style: block.settings.button_2_style
+                %}
+              {%- endif -%}
+            </div>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shingler developments",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Current Developments" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find Your Perfect Home" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Browse our current and upcoming new-build homes across Shropshire. Every Shingler home is crafted to an exacting standard." },
+    { "type": "select", "id": "heading_size", "options": [{ "value": "h1", "label": "Large" }, { "value": "h2", "label": "Medium" }], "default": "h1", "label": "Heading size" },
+    { "type": "text", "id": "view_all_label", "label": "View all button label", "default": "View All Developments" },
+    { "type": "url", "id": "view_all_link", "label": "View all button link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding top", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bottom", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "development",
+      "name": "Development",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Development collection" },
+        { "type": "image_picker", "id": "image", "label": "Image override" },
+        { "type": "text", "id": "placeholder_title", "label": "Placeholder title", "default": "Development name" },
+        { "type": "text", "id": "location", "label": "Location", "default": "Shropshire" },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "text", "id": "price", "label": "Price", "default": "From £235,000" },
+        { "type": "text", "id": "status_tag", "label": "Status badge", "default": "Selling Now" },
+        { "type": "select", "id": "tag_style", "label": "Status badge style", "options": [{ "value": "dark", "label": "Dark" }, { "value": "light", "label": "Light" }], "default": "dark" },
+        { "type": "text", "id": "feature_tag_1", "label": "Feature tag 1", "default": "2-4 Bed" },
+        { "type": "checkbox", "id": "feature_tag_1_filled", "label": "Feature tag 1 filled", "default": false },
+        { "type": "text", "id": "feature_tag_2", "label": "Feature tag 2" },
+        { "type": "checkbox", "id": "feature_tag_2_filled", "label": "Feature tag 2 filled", "default": false },
+        { "type": "text", "id": "button_label_1", "label": "Primary button", "default": "View Development" },
+        { "type": "url", "id": "button_link_1", "label": "Primary button link" },
+        { "type": "select", "id": "button_1_style", "label": "Primary button style", "options": [{ "value": "solid-dark", "label": "Solid dark" }, { "value": "outline-dark", "label": "Outline dark" }], "default": "solid-dark" },
+        { "type": "text", "id": "button_label_2", "label": "Secondary button" },
+        { "type": "url", "id": "button_link_2", "label": "Secondary button link" },
+        { "type": "select", "id": "button_2_style", "label": "Secondary button style", "options": [{ "value": "outline-dark", "label": "Outline dark" }, { "value": "solid-dark", "label": "Solid dark" }], "default": "outline-dark" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shingler developments",
+      "blocks": [
+        { "type": "development", "settings": { "placeholder_title": "Bridleways", "location": "Baschurch, Shropshire", "description": "A collection of 2, 3 and 4 bedroom homes in a landscaped community.", "price": "Register for pricing", "status_tag": "Selling Now", "feature_tag_1": "2-4 Bed", "button_label_1": "View Development", "button_label_2": "Register Interest", "button_link_2": "#register-interest" } },
+        { "type": "development", "settings": { "placeholder_title": "The Acorns", "location": "Shropshire", "description": "Quality new-build homes crafted with care, built to stand the test of time.", "price": "From £275,000", "status_tag": "Coming Soon", "tag_style": "light", "feature_tag_1": "3-5 Bed", "feature_tag_2": "Launching Soon", "button_label_1": "Register Interest", "button_1_style": "outline-dark" } },
+        { "type": "development", "settings": { "placeholder_title": "Victoria Works", "location": "Shropshire", "description": "An exclusive collection of executive homes. Part of our premium Signature Collection.", "price": "Prices on Application", "status_tag": "Signature Collection", "feature_tag_1": "4-5 Bed", "feature_tag_2": "Executive Homes", "button_label_1": "View Signature Collection", "button_1_style": "outline-dark" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

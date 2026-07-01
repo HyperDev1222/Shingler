@@ -1,0 +1,80 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "shingler-development-hero",
+      "settings": {
+        "eyebrow": "The Development",
+        "heading": "",
+        "text": "",
+        "image": ""
+      }
+    },
+    "enquiry": {
+      "type": "shingler-enquiry-form",
+      "settings": {
+        "heading": "Register your interest",
+        "description": "",
+        "development_name": "",
+        "consent_text": "Tick this box to receive ongoing communications from Shingler Homes on news, offers and new developments.",
+        "button_label": "Submit",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "sales_contact": {
+      "type": "shingler-sales-contact",
+      "settings": {
+        "heading": "Sales Suite",
+        "text": "Coming soon!",
+        "contact_intro": "Register your interest now by contacting our Sales Negotiator:",
+        "contact_name": "",
+        "contact_email": "",
+        "contact_phone": "",
+        "button_label": "Get in touch",
+        "button_link": "",
+        "color_scheme": "scheme-2",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Stay in touch with news on all our latest developments",
+            "heading_size": "h2"
+          }
+        },
+        "email_form": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": ["heading", "email_form"],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "padding_top": 48,
+        "padding_bottom": 64
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "enquiry",
+    "sales_contact",
+    "newsletter"
+  ]
+}

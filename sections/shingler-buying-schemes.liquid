@@ -1,0 +1,79 @@
+{{ 'section-shingler-schemes.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-buttons.css' | asset_url | stylesheet_tag }}
+{{ 'component-shingler-section-header.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding { padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding shingler-schemes">
+  <div class="page-width">
+    <div class="shingler-schemes__header">
+      {% render 'shingler-section-header',
+        eyebrow: section.settings.eyebrow,
+        heading: section.settings.heading,
+        heading_size: 'h1',
+        description: section.settings.description
+      %}
+    </div>
+    <div class="shingler-schemes__grid">
+      {%- for block in section.blocks -%}
+        <article class="shingler-schemes__card" {{ block.shopify_attributes }}>
+          <h3 class="shingler-schemes__card-title">{{ block.settings.title | escape }}</h3>
+          <p class="shingler-schemes__card-text">{{ block.settings.text | escape }}</p>
+          {% render 'shingler-btn', label: block.settings.link_label, url: block.settings.link, style: 'text' %}
+        </article>
+      {%- endfor -%}
+    </div>
+    <div class="shingler-schemes__footer">
+      {% render 'shingler-btn', label: section.settings.button_label, url: section.settings.button_link, style: 'solid-dark' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Buying schemes",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Buyer Support Schemes" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We Make Moving Easier" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Eight schemes designed to help every type of buyer — from first-timers to those moving up the property ladder." },
+    { "type": "text", "id": "button_label", "label": "Footer button", "default": "View All 8 Schemes" },
+    { "type": "url", "id": "button_link", "label": "Footer button link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding top", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bottom", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "scheme",
+      "name": "Scheme",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "First Time Buyer Assist" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Everything you need to take your first step with confidence." },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Learn More" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Buying schemes",
+      "blocks": [
+        { "type": "scheme", "settings": { "title": "First Time Buyer Assist", "text": "Everything you need to take your first step with confidence." } },
+        { "type": "scheme", "settings": { "title": "Deposit Match", "text": "We match your deposit, reducing the mortgage you need to secure." } },
+        { "type": "scheme", "settings": { "title": "Part Exchange", "text": "Sell your current home direct to us. No chains, no stress." } },
+        { "type": "scheme", "settings": { "title": "Early Bird Reservation", "text": "Reserve before launch for priority plot selection and exclusive pricing." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

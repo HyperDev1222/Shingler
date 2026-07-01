@@ -1,0 +1,67 @@
+{%- comment -%}
+  Renders Shingler logo with light/dark variants.
+  Accepts:
+  - logo_class: {String}
+{%- endcomment -%}
+
+{%- liquid
+  assign base_class = logo_class | default: 'header__heading-logo'
+  assign logo_light = settings.logo_light
+  assign logo_dark = settings.logo
+  assign logo_width = settings.logo_width
+-%}
+
+{%- if logo_dark != blank or logo_light != blank -%}
+  <div class="header__heading-logo-wrapper">
+    {%- capture sizes -%}(max-width: {{ logo_width | times: 2 }}px) 50vw, {{ logo_width }}px{%- endcapture -%}
+    {%- capture widths -%}{{ logo_width }}, {{ logo_width | times: 1.5 | round }}, {{ logo_width | times: 2 }}{%- endcapture -%}
+    {%- if logo_dark != blank -%}
+      {%- assign logo_alt = logo_dark.alt | default: shop.name | escape -%}
+      {%- assign logo_height = logo_width | divided_by: logo_dark.aspect_ratio -%}
+      {%- assign dark_class = base_class | append: ' header__heading-logo--dark motion-reduce' -%}
+      {{
+        logo_dark
+        | image_url: width: 600
+        | image_tag:
+          class: dark_class,
+          widths: widths,
+          height: logo_height,
+          width: logo_width,
+          alt: logo_alt,
+          sizes: sizes,
+          preload: true
+      }}
+    {%- endif -%}
+    {%- if logo_light != blank -%}
+      {%- assign logo_alt_light = logo_light.alt | default: shop.name | escape -%}
+      {%- assign logo_height_light = logo_width | divided_by: logo_light.aspect_ratio -%}
+      {%- assign light_class = base_class | append: ' header__heading-logo--light motion-reduce' -%}
+      {{
+        logo_light
+        | image_url: width: 600
+        | image_tag:
+          class: light_class,
+          widths: widths,
+          height: logo_height_light,
+          width: logo_width,
+          alt: logo_alt_light,
+          sizes: sizes
+      }}
+    {%- elsif logo_dark != blank -%}
+      {%- assign light_class = base_class | append: ' header__heading-logo--light motion-reduce' -%}
+      {{
+        logo_dark
+        | image_url: width: 600
+        | image_tag:
+          class: light_class,
+          widths: widths,
+          height: logo_height,
+          width: logo_width,
+          alt: logo_alt,
+          sizes: sizes
+      }}
+    {%- endif -%}
+  </div>
+{%- else -%}
+  <span class="h2">{{ shop.name }}</span>
+{%- endif -%}

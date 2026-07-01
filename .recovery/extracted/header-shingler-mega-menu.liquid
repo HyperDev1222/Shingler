@@ -1,0 +1,218 @@
+{% comment %}
+  Shingler mega-menu: card layout for developments, text columns for other parents.
+  Usage: {% render 'header-shingler-mega-menu' %}
+{% endcomment %}
+
+{%- liquid
+  assign card_menu_handle = section.settings.mega_card_menu_handle | default: 'developments' | handleize
+-%}
+
+<nav class="header__inline-menu">
+  <ul class="list-menu list-menu--inline" role="list">
+    {%- for link in section.settings.menu.links -%}
+      <li>
+        {%- if link.links != blank -%}
+          {%- liquid
+            assign use_card_layout = false
+            if link.handle == card_menu_handle
+              assign use_card_layout = true
+            endif
+          -%}
+          <header-menu>
+            <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu shingler-mega-menu{% if use_card_layout %} shingler-mega-menu--cards{% endif %}">
+              <summary
+                id="HeaderMenu-{{ link.handle }}"
+                class="header__menu-item list-menu__item link focus-inset shingler-mega-menu__trigger"
+                aria-expanded="false"
+              >
+                <span
+                  {%- if link.child_active %}
+                    class="header__active-menu-item"
+                  {% endif %}
+                >
+                  {{- link.title | escape -}}
+                </span>
+                <span class="shingler-mega-menu__plus" aria-hidden="true">+</span>
+              </summary>
+              <div
+                id="MegaMenu-Content-{{ forloop.index }}"
+                class="mega-menu__content shingler-mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+                tabindex="-1"
+              >
+                {%- if use_card_layout -%}
+                  <div class="shingler-mega-menu__cards-grid">
+                    {%- for childlink in link.links -%}
+                      <div class="shingler-mega-menu__column">
+                        <p class="shingler-mega-menu__column-heading" id="MegaMenu-{{ link.handle }}-{{ childlink.handle }}">
+                          {%- if childlink.url != blank and childlink.url != '#' -%}
+                            <a href="{{ childlink.url }}" class="shingler-mega-menu__column-heading-link">
+                              {{ childlink.title | escape }}
+                            </a>
+                          {%- else -%}
+                            {{ childlink.title | escape }}
+                          {%- endif -%}
+                        </p>
+                        {%- if childlink.links != blank -%}
+                          <ul class="shingler-mega-menu__card-list list-unstyled" role="list" aria-labelledby="MegaMenu-{{ link.handle }}-{{ childlink.handle }}">
+                            {%- for grandchildlink in childlink.links -%}
+                              {%- liquid
+                                assign item_object = grandchildlink.object
+                                assign item_title = grandchildlink.title
+                                assign item_location = blank
+                                assign item_image = blank
+
+                                if item_object.featured_image
+                                  assign item_image = item_object.featured_image
+                                endif
+
+                                if item_object.metafields.custom.location != blank
+                                  assign item_location = item_object.metafields.custom.location
+                                endif
+
+                                if item_object.title != blank
+                                  assign item_title = item_object.title
+                                endif
+                              -%}
+                              <li>
+                                <a
+                                  id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                  href="{{ grandchildlink.url }}"
+                                  class="shingler-mega-menu__card{% if grandchildlink.current %} shingler-mega-menu__card--active{% endif %}"
+                                  {% if grandchildlink.current %}
+                                    aria-current="page"
+                                  {% endif %}
+                                >
+                                  <span class="shingler-mega-menu__card-media">
+                                    {%- if item_image != blank -%}
+                                      {{
+                                        item_image
+                                        | image_url: width: 128
+                                        | image_tag: loading: 'lazy', sizes: '64px', alt: item_title
+                                      }}
+                                    {%- else -%}
+                                      <span class="shingler-mega-menu__card-placeholder"></span>
+                                    {%- endif -%}
+                                  </span>
+                                  <span class="shingler-mega-menu__card-text">
+                                    {%- if item_location != blank -%}
+                                      <span class="shingler-mega-menu__card-location">{{ item_location | escape }}</span>
+                                    {%- endif -%}
+                                    <span class="shingler-mega-menu__card-title">{{ item_title | escape }}</span>
+                                  </span>
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        {%- elsif childlink.url != blank and childlink.url != '#' -%}
+                          {%- liquid
+                            assign item_object = childlink.object
+                            assign item_title = childlink.title
+                            assign item_location = blank
+                            assign item_image = blank
+
+                            if item_object.featured_image
+                              assign item_image = item_object.featured_image
+                            endif
+
+                            if item_object.metafields.custom.location != blank
+                              assign item_location = item_object.metafields.custom.location
+                            endif
+
+                            if item_object.title != blank
+                              assign item_title = item_object.title
+                            endif
+                          -%}
+                          <ul class="shingler-mega-menu__card-list list-unstyled" role="list">
+                            <li>
+                              <a
+                                href="{{ childlink.url }}"
+                                class="shingler-mega-menu__card{% if childlink.current %} shingler-mega-menu__card--active{% endif %}"
+                              >
+                                <span class="shingler-mega-menu__card-media">
+                                  {%- if item_image != blank -%}
+                                    {{
+                                      item_image
+                                      | image_url: width: 128
+                                      | image_tag: loading: 'lazy', sizes: '64px', alt: item_title
+                                    }}
+                                  {%- else -%}
+                                    <span class="shingler-mega-menu__card-placeholder"></span>
+                                  {%- endif -%}
+                                </span>
+                                <span class="shingler-mega-menu__card-text">
+                                  {%- if item_location != blank -%}
+                                    <span class="shingler-mega-menu__card-location">{{ item_location | escape }}</span>
+                                  {%- endif -%}
+                                  <span class="shingler-mega-menu__card-title">{{ item_title | escape }}</span>
+                                </span>
+                              </a>
+                            </li>
+                          </ul>
+                        {%- endif -%}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                {%- else -%}
+                  <ul
+                    class="mega-menu__list shingler-mega-menu__text-list{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
+                    role="list"
+                  >
+                    {%- for childlink in link.links -%}
+                      <li>
+                        <a
+                          id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+                          href="{{ childlink.url }}"
+                          class="mega-menu__link mega-menu__link--level-2 shingler-mega-menu__text-heading link{% if childlink.current %} mega-menu__link--active{% endif %}"
+                          {% if childlink.current %}
+                            aria-current="page"
+                          {% endif %}
+                        >
+                          {{ childlink.title | escape }}
+                        </a>
+                        {%- if childlink.links != blank -%}
+                          <ul class="list-unstyled shingler-mega-menu__text-links" role="list">
+                            {%- for grandchildlink in childlink.links -%}
+                              <li>
+                                <a
+                                  id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                  href="{{ grandchildlink.url }}"
+                                  class="mega-menu__link shingler-mega-menu__text-link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
+                                  {% if grandchildlink.current %}
+                                    aria-current="page"
+                                  {% endif %}
+                                >
+                                  {{ grandchildlink.title | escape }}
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            </details>
+          </header-menu>
+        {%- else -%}
+          <a
+            id="HeaderMenu-{{ link.handle }}"
+            href="{{ link.url }}"
+            class="header__menu-item list-menu__item link link--text focus-inset shingler-mega-menu__link"
+            {% if link.current %}
+              aria-current="page"
+            {% endif %}
+          >
+            <span
+              {%- if link.current %}
+                class="header__active-menu-item"
+              {% endif %}
+            >
+              {{- link.title | escape -}}
+            </span>
+          </a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

@@ -1,0 +1,69 @@
+.shingler-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: opacity 0.2s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+.shingler-cta:hover {
+  opacity: 0.85;
+}
+
+.shingler-cta__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--shingler-icon-size);
+  height: var(--shingler-icon-size);
+  background-color: var(--shingler-yellow);
+  color: var(--shingler-dark);
+}
+
+.shingler-cta__icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.shingler-cta--secondary {
+  gap: 0.8rem;
+  padding: 0.8rem 1.6rem 0.8rem 0.8rem;
+  background-color: var(--shingler-yellow);
+  color: var(--shingler-dark);
+  border-radius: var(--shingler-radius);
+}
+
+.shingler-cta--secondary .shingler-cta__icon {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.shingler-cta--on-dark {
+  color: #ffffff;
+}
+
+.shingler-cta--on-dark.shingler-cta--primary .shingler-cta__label {
+  color: #ffffff;
+}
+
+.shingler-cta[aria-disabled='true'] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.shingler-cta-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  align-items: center;
+}

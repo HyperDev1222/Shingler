@@ -1,0 +1,89 @@
+.shingler-news__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+}
+
+@media screen and (min-width: 990px) {
+  .shingler-news__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.shingler-news-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--shingler-border);
+  background-color: var(--shingler-white);
+}
+
+.shingler-news-card__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.shingler-news-card__media img,
+.shingler-news-card__placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.shingler-news-card__placeholder {
+  background-color: rgba(var(--color-foreground), 0.08);
+}
+
+.shingler-news-card__body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.shingler-news-card__meta {
+  margin: 0 0 0.8rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+.shingler-news-card__title {
+  margin: 0 0 1rem;
+  font-size: 1.8rem;
+  line-height: 1.3;
+}
+
+.shingler-news-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.shingler-news-card__excerpt {
+  margin: 0 0 1.6rem;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.75);
+  flex: 1;
+}
+
+/* Figma wireframe outline buttons */
+.section-shingler-news .shingler-btn--outline-dark {
+  border-radius: 0;
+  font-weight: 500;
+  letter-spacing: var(--shingler-letter-spacing-button);
+}
+
+.section-shingler-news .shingler-section-header__action .shingler-btn--outline-dark {
+  padding: 1.2rem 2.4rem;
+  font-size: 1.1rem;
+}
+
+.section-shingler-news .shingler-news-card__body .shingler-btn--outline-dark {
+  align-self: flex-start;
+  width: fit-content;
+  margin-top: auto;
+  padding: 1.1rem 2.1rem;
+  font-size: 1.1rem;
+}

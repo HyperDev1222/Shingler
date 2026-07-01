@@ -1,0 +1,23 @@
+.shingler-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--shingler-icon-size);
+  height: var(--shingler-icon-size);
+  padding: 0;
+  border: none;
+  background-color: var(--shingler-yellow);
+  color: var(--shingler-dark);
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.shingler-icon-button:hover {
+  opacity: 0.85;
+}
+
+.shingler-icon-button svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}

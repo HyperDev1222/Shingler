@@ -30,6 +30,22 @@
         "id": "favicon",
         "label": "t:settings_schema.logo.settings.favicon.label",
         "info": "t:settings_schema.logo.settings.favicon.info"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_light",
+        "label": "Logo (light — for dark backgrounds)"
+      }
+    ]
+  },
+  {
+    "name": "Shingler",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "shingler_enable_cart",
+        "label": "Show cart icon in header",
+        "default": false
       }
     ]
   },
